@@ -4,7 +4,6 @@ import AppController from "./app.controller";
 import * as path from "path";
 import { Module } from "@nestjs/common/decorators";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ChatModule } from "./models/chat/chat.module";
 import globalConfig from "@configs/global.config";
 import postgresConfig from "@configs/database/postgres.config";
 
@@ -25,7 +24,6 @@ const ENV = process.env.NODE_ENV || "local";
         ...configService.get("database"),
       }),
     }),
-    ChatModule,
   ],
 })
 export default class AppModule {}
