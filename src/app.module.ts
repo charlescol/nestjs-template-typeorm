@@ -1,11 +1,11 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import AppService from "./app.service";
-import AppController from "./app.controller";
 import * as path from "path";
 import { Module } from "@nestjs/common/decorators";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import globalConfig from "@configs/global.config";
 import postgresConfig from "@configs/database/postgres.config";
+import AppController from "./app.controller";
+import AppService from "./app.service";
 
 const ENV = process.env.NODE_ENV || "local";
 

@@ -3,10 +3,11 @@ module.exports = {
   parserOptions: {
     project: 'tsconfig.json',
     sourceType: 'module',
-    tsconfigRootDir: __dirname,
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
+    'airbnb-base',
+    'airbnb-typescript/base',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
@@ -18,12 +19,13 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js'],
   rules: {
     'class-methods-use-this': 'off',
-    'no-await-in-loop': 'off',
     'import/no-cycle': 'off',
-    'no-param-reassign' : 'off',
-    "prettier/prettier": ["error",{
-      "endOfLine": "auto"}
-    ],
-    'no-restricted-syntax' : 'off',
+    'no-plusplus': 'off',
+    'no-restricted-syntax': 'off',
+    'no-await-in-loop': 'off',
+    'no-continue': 'off',
+    '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
+    '@typescript-eslint/no-explicit-any': "off",
+    'no-restricted-syntax': ["error", "LabeledStatement", "WithStatement"],
   },
 };

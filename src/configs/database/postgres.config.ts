@@ -1,8 +1,8 @@
 import { join } from "path";
 import { config } from "dotenv";
-import CustomNamingStrategy from "./customNamingStrategy";
 import { registerAs } from "@nestjs/config";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import CustomNamingStrategy from "./customNamingStrategy";
 
 config();
 

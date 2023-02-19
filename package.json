@@ -17,7 +17,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node --project tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/configs/database/orm.config.ts"
+    "typeorm": "ts-node --project tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/configs/database/orm.config.ts",
+    "migration:create": "typeorm migration:create -d ./src/configs/database/migrations",
+    "migration:run": "ts-node --project tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/configs/database/orm.config.ts migration:run"
   },
   "dependencies": {
     "@fastify/static": "^6.9.0",
@@ -30,6 +32,7 @@
     "@nestjs/typeorm": "8.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "dotenv": "^16.0.3",
     "pg": "^8.9.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
