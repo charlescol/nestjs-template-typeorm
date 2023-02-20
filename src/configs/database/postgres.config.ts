@@ -22,7 +22,7 @@ export default registerAs(
       logging: process.env.DATABASE_ENABLE_LOGGING === "true",
       entities: [join(__dirname, "../../models/*/", "*.entity.{ts,js}")],
       migrations: [join(__dirname, "migrations/*.ts")],
-      synchronize: true,
+      synchronize: false,
       migrationsRun: false,
       namingStrategy: new CustomNamingStrategy(),
       cli: {
