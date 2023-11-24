@@ -3,6 +3,7 @@ module.exports = {
   parserOptions: {
     project: 'tsconfig.json',
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
@@ -19,13 +20,13 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js'],
   rules: {
     'class-methods-use-this': 'off',
-    'import/no-cycle': 'off',
-    'no-plusplus': 'off',
-    'no-restricted-syntax': 'off',
     'no-await-in-loop': 'off',
-    'no-continue': 'off',
-    '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
-    '@typescript-eslint/no-explicit-any': "off",
-    'no-restricted-syntax': ["error", "LabeledStatement", "WithStatement"],
+    'default-case' : 'off',
+    'import/no-cycle': 'off',
+    'no-param-reassign' : 'off',
+    "prettier/prettier": ["error",{
+      "endOfLine": "auto"}
+    ],
+    'no-restricted-syntax' : 'off',
   },
 };

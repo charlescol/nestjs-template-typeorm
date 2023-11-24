@@ -1,35 +1,29 @@
-import { DefaultNamingStrategy, Table, NamingStrategyInterface } from "typeorm";
+import { DefaultNamingStrategy, NamingStrategyInterface } from "typeorm";
 
 export default class CustomNamingStrategy
   extends DefaultNamingStrategy
   implements NamingStrategyInterface
 {
-  uniqueConstraintName(
-    tableOrName: string | Table,
-    columnNames: string[]
-  ): string {
-    const table = tableOrName instanceof Table ? tableOrName.name : tableOrName;
-    return `UQ_${table}_${columnNames.join("_")}`;
+  uniqueConstraintName(tableOrName: string, columnNames: string[]): string {
+    return `UQ_${tableOrName}_${columnNames.join("_")}`;
   }
 
-  primaryKeyName(tableOrName: Table | string): string {
-    const table = tableOrName instanceof Table ? tableOrName.name : tableOrName;
-    return `${table}_pkey`;
+  primaryKeyName(tableOrName: string): string {
+    return `${tableOrName}_pkey`;
   }
 
-  indexName(tableOrName: string | Table, columnNames: string[]): string {
-    const table = tableOrName instanceof Table ? tableOrName.name : tableOrName;
+  indexName(tableOrName: string, columnNames: string[]): string {
     const columnSnakeCase = columnNames.join("_");
-    if (columnSnakeCase.endsWith("Id")) return `${table}_${columnSnakeCase}`;
-    return `${table}_${columnSnakeCase}_index`;
+    if (columnSnakeCase.endsWith("Id"))
+      return `${tableOrName}_${columnSnakeCase}`;
+    return `${tableOrName}_${columnSnakeCase}_index`;
   }
 
   foreignKeyName(
-    tableOrName: string | Table,
+    tableOrName: string,
     columnNames: string[],
     _referencedTablePath?: string | undefined
   ): string {
-    const table = tableOrName instanceof Table ? tableOrName.name : tableOrName;
-    return `FK_${table}_${_referencedTablePath}_${columnNames.join("_")}`;
+    return `FK_${tableOrName}_${_referencedTablePath}_${columnNames.join("_")}`;
   }
 }

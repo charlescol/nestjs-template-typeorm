@@ -1,3 +1,4 @@
+import AppModule from "@src/app.module";
 import { Injectable, ValidationPipe } from "@nestjs/common";
 import {
   FastifyAdapter,
@@ -5,16 +6,24 @@ import {
 } from "@nestjs/platform-fastify";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Test, TestingModuleBuilder } from "@nestjs/testing";
-import AppModule from "@src/app.module";
+import * as dotenv from "dotenv";
+import * as path from "path";
 import { E2eApp } from "./jest.types";
+
+dotenv.config({
+  path: path.resolve(
+    process.cwd(),
+    "env",
+    `.env.${process.env.NODE_ENV || "local"}`
+  ),
+});
 
 @Injectable()
 class JestService {
   static async getE2EApp(): Promise<E2eApp> {
-    const appModuleBuilder: TestingModuleBuilder =
-      await Test.createTestingModule({
-        imports: [AppModule],
-      });
+    const appModuleBuilder: TestingModuleBuilder = Test.createTestingModule({
+      imports: [AppModule],
+    });
 
     const appModule = await appModuleBuilder.compile();
 
@@ -23,11 +32,7 @@ class JestService {
     );
 
     app.useGlobalPipes(
-      new ValidationPipe({
-        whitelist: true,
-        transform: true,
-        transformOptions: { enableImplicitConversion: true },
-      })
+      new ValidationPipe({ whitelist: true, transform: true })
     );
     app.setGlobalPrefix("api");
 

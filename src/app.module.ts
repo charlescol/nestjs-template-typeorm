@@ -1,13 +1,11 @@
-import { ConfigModule, ConfigService } from "@nestjs/config";
 import * as path from "path";
 import { Module } from "@nestjs/common/decorators";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import globalConfig from "@configs/global.config";
 import postgresConfig from "@configs/database/postgres.config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import AppController from "./app.controller";
 import AppService from "./app.service";
-
-const ENV = process.env.NODE_ENV || "local";
 
 @Module({
   controllers: [AppController],
@@ -16,7 +14,11 @@ const ENV = process.env.NODE_ENV || "local";
     ConfigModule.forRoot({
       isGlobal: true,
       load: [globalConfig, postgresConfig],
-      envFilePath: path.resolve(process.cwd(), "env", `.env.${ENV}`),
+      envFilePath: path.resolve(
+        process.cwd(),
+        "env",
+        `.env.${process.env.NODE_ENV || "local"}`
+      ),
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
