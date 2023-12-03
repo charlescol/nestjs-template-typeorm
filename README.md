@@ -1,6 +1,6 @@
 # NestJS Template
 
-This project is a template for NestJS, tailored for integration with Postgres and a Bitbucket pipelines. It offers a robust starting point and includes fundamental unit tests and end-to-end tests, exemplified through a simple "Hello World" function located in the main application module.
+This project is a template for NestJS, tailored for integration with Postgres and a Bitbucket pipeline. It offers a robust starting point and includes fundamental unit tests and end-to-end tests, exemplified through a simple "Hello World" function located in the main application module.
 
 ## Dependencies Overview
 
