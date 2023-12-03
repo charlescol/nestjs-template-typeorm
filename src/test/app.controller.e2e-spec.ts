@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import { NestFastifyApplication } from "@nestjs/platform-fastify";
 import JestService from "@providers/jest/jest.service";
-import { Connection } from "typeorm";
 
 /**
  * Suite of tests for the User Controller.
  */
-describe("User Controller Tests", () => {
+describe("AppController E2E Tests", () => {
   let app: NestFastifyApplication;
 
   /* Set up the application before running any tests */
@@ -54,15 +53,6 @@ describe("User Controller Tests", () => {
 
   /* Clean up after all tests have run */
   afterAll(async () => {
-    try {
-      /* Close database connection if it exists */
-      const connection = app.get(Connection);
-      if (connection.isConnected) await connection.close();
-    } catch (error) {
-      console.error("Error during cleanup:", error);
-    } finally {
-      /* Ensure the application is closed */
-      await app.close();
-    }
+    await JestService.closeApp(app);
   });
 });

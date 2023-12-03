@@ -1,22 +1,26 @@
-# Stage 1: Install all dependencies and run tests
-FROM node:latest as builder
+# Base image for setting up common environment
+FROM node:20 as base
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install
+
+# Stage 1: Testing the Application
+FROM base as tester
+RUN yarn install --frozen-lockfile
 COPY . .
-RUN yarn test:e2e
+CMD yarn typeorm migration:run && yarn run test
 
+# Stage 2: Building the Application for Production
+FROM base as builder
+RUN yarn install --frozen-lockfile
+COPY . .
+RUN yarn build
 
-# Stage 2: Build the production image
-FROM node:latest as production
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --production
+# Stage 3: Production Image
+FROM base as production
+RUN yarn install --frozen-lockfile --production
+RUN yarn audit
 COPY --from=builder /app/dist ./dist
 
-EXPOSE 3000
+USER node
 
-# Run the Application
-CMD ["npm", "run", "start:prod"]
-
-
+CMD yarn run start:prod

@@ -13,7 +13,7 @@ export default registerAs("database", () => ({
       : false,
   logging: process.env.DATABASE_ENABLE_LOGGING === "true",
   entities: [join(__dirname, "../../models/*/", "*.entity.{ts,js}")],
-  migrations: [join(__dirname, "migrations/*.ts")],
+  migrations: [join(__dirname, "migrations/*.{ts,js}")],
   migrationsTableName: "migrations",
 
   autoLoadEntities: true,

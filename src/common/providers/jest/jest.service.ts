@@ -6,17 +6,8 @@ import {
 } from "@nestjs/platform-fastify";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Test, TestingModuleBuilder } from "@nestjs/testing";
-import * as dotenv from "dotenv";
-import * as path from "path";
+import { DataSource } from "typeorm";
 import { E2eApp } from "./jest.types";
-
-dotenv.config({
-  path: path.resolve(
-    process.cwd(),
-    "env",
-    `.env.${process.env.NODE_ENV || "local"}`
-  ),
-});
 
 @Injectable()
 class JestService {
@@ -46,6 +37,19 @@ class JestService {
     e2eApp = { ...e2eApp };
 
     return e2eApp;
+  }
+
+  static async closeApp(app: NestFastifyApplication): Promise<void> {
+    try {
+      /* Close database connection if it exists */
+      await app.get(DataSource).destroy();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Error during cleanup:", error);
+    } finally {
+      /* Ensure the application is closed */
+      await app.close();
+    }
   }
 }
 

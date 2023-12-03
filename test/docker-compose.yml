@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  api:
+    container_name: api
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      target: tester
+    restart: "no"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
+      - DATABASE_ENABLE_SSL=false
+      - DATABASE_ENABLE_LOGGING=false
+    command: sh -c "yarn run typeorm migration:run && yarn run test"
+    volumes:
+      - ./test_results:/app/test_results
+    depends_on:
+      postgres:
+        condition: service_healthy
+        
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    restart: "no"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres && PGPASSWORD=postgres psql -U postgres -d postgres -c 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"

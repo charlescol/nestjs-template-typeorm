@@ -5,17 +5,24 @@ import {
 } from "@nestjs/platform-fastify";
 import { ValidationPipe } from "@nestjs/common/pipes";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import validateConfig from "@configs/env/validateConfig.function";
 import AppModule from "./app.module";
 
+/* Environment variables validation */
+validateConfig(process.env);
+
 async function bootstrap(): Promise<void> {
+  /* AppConfiguration */
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ bodyLimit: 50048576 })
   );
 
+  /* Pipes Configuration */
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.setGlobalPrefix("api");
 
+  /* Swagger configuration */
   const swaggerConfig = new DocumentBuilder()
     .setTitle("Project")
     .setDescription("Project API")
@@ -28,9 +35,10 @@ async function bootstrap(): Promise<void> {
     SwaggerModule.setup("swagger", app, document);
   }
 
+  /* Port Configuration */
   if (process.env.DISABLE_APP_ADDRESS_LISTENING === "true")
-    await app.listen(3000);
-  else await app.listen(3000, process.env.HOSTNAME || "");
+    await app.listen(process.env.PORT || 3000);
+  else await app.listen(process.env.PORT || 3000, process.env.HOSTNAME || "");
 }
 
 bootstrap();
