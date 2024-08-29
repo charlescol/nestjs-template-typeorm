@@ -1,7 +1,7 @@
 {
   "name": "nestjs-project",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NestJS Project",
   "license": "MIT",
   "scripts": {
@@ -13,7 +13,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "NODE_ENV=test jest --config ./src/configs/jest/jest.config.json",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:container": "docker-compose -f test/docker-compose.yml up --exit-code-from api && docker-compose -f test/docker-compose.yml down",
     "typeorm": "ts-node --project tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/configs/database/orm.config.ts",
     "heroku-postbuild": "npx typeorm migration:run -d dist/configs/database/orm.config.js"
   },

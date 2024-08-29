@@ -5,11 +5,7 @@ import {
 } from "@nestjs/platform-fastify";
 import { ValidationPipe } from "@nestjs/common/pipes";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import validateConfig from "@configs/env/validateConfig.function";
 import AppModule from "./app.module";
-
-/* Environment variables validation */
-validateConfig(process.env);
 
 async function bootstrap(): Promise<void> {
   /* AppConfiguration */

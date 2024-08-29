@@ -57,7 +57,7 @@ definitions:
           - yarn build
 
           # Create the production folder
-          - mkdir app && cp package.json yarn.lock app && cd app  
+          - mkdir app && cp package.json yarn.lock Procfile app && cd app  
           - yarn install --frozen-lockfile --production && cp -r ../dist .
 
           # Compress the app

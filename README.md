@@ -36,6 +36,10 @@ This project utilizes several `yarn` scripts for efficient development, testing,
 - `yarn typeorm`: Facilitates TypeORM related operations, key for database entity and migration management.
 - `yarn typeorm migration:run`: Executes TypeORM migrations, applying necessary changes to your database schema.
 
+### Recommendations for Testing
+
+It's advisable to establish a secondary database dedicated to testing purposes and to create an `.env.test` file. This approach ensures isolation and consistency during the testing phase. Alternatively, if setting up a separate testing database isn't feasible, consider utilizing the command `yarn run test:container`. This command replicates the infrastructure and conducts tests in an isolated environment, mimicking production conditions closely and ensuring the reliability of your tests.
+
 ## Environment Variable Management
 
 The project uses environment variables for configuration, stored in the `/env` folder. Follow these guidelines for setting up and maintaining these variables:
@@ -77,3 +81,12 @@ The pipeline, configured for Bitbucket CI/CD, automates various stages for the a
 
 ### Branch-Specific Pipelines
 - Customized pipeline configurations for `dev`, `staging`, and `master` branches, each tailored for specific testing and deployment processes.
+
+
+## Todo
+- **Use Heroku Container for Caching in the Pipeline Testing Step**
+- **Use BuildKit by adding export PATH=/usr/bin:$PATH in the Pipeline Testing Step**
+- **Add Slack Notification for Pipeline Steps**
+- **Review and Validate ESLint Rules**
+
+
