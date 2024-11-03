@@ -4,13 +4,13 @@ This project is a template for NestJS, tailored for integration with Postgres an
 
 ## Dependencies Overview
 
-- **TypeScript** (`5.3.2`): JavaScript superset with static typing.
-- **ESLint** (`8.19.0`)/**Prettier** (`2.7.1`): Tools for JavaScript code linting and formatting.
-- **Fastify** (`10.2.10`): Web framework for Node.js, emphasizing performance.
-- **Swagger** (`7.1.16`): Tools for designing, documenting, and consuming REST APIs.
-- **TypeORM** (`0.3.17`): ORM for TypeScript and JavaScript, supporting various SQL databases.
-- **Jest** (`28.1.2`): JavaScript testing framework.
-- **Joi** (`17.11.0`): Schema description language and data validator for JavaScript.
+- **TypeScript**: JavaScript superset with static typing.
+- **ESLint**/**Prettier**: Tools for JavaScript code linting and formatting.
+- **Fastify**: Web framework for Node.js, emphasizing performance.
+- **Swagger**: Tools for designing, documenting, and consuming REST APIs.
+- **TypeORM**: ORM for TypeScript and JavaScript, supporting various SQL databases.
+- **Jest**: JavaScript testing framework.
+- **Joi**: Schema description language and data validator for JavaScript.
 
 ## Important Considerations
 
